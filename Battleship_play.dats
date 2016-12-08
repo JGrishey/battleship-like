@@ -121,13 +121,6 @@ document.getElementById("attack_btn").onclick = function () {
         alert("He missed!");
     }
 
-    if (hits == 10) {
-        alert("You won!");
-    }
-    if (hitsTaken == 10) {
-        alert("You lost!");
-    }
-
     ats2jspre_the_print_store_clear();
     var [s1, s2] = boards2show(players[0]);
     printBoards(s1, s2);
