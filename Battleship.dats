@@ -156,7 +156,7 @@ end
 implement bomb_node (ownBd, attBd, x, y) =
 (
     case+ ownBd[x, y] of
-    | dN0 () => (attBd[x, y] := aN1(1); 0)
+    | dN0 () => (attBd[x, y] := aN1(1); ownBd[x,y] := dN1(3); 0)
     | dN1 (i) => if i = 1 then (ownBd[x,y] := dN1(2); attBd[x, y] := aN1(2); 1) else 0
     (*
         case+ i of
@@ -176,6 +176,7 @@ case+ nx of
     case+ x of
     | 1 => "S"
     | 2 => "D"
+    | 3 => "-"
     | _ => String(x)
     )
 )
@@ -286,6 +287,19 @@ let
     val () = print(s1)
 in
     if s0 = 10 then alert("You won!") else if s1 = 10 then alert("You Lost!") else ()
+end
+)
+
+(* ****** ****** *)
+
+implement checkBefore (player, x, y) =
+(
+let
+    val $tup(_, attBd, _, _, _) = player
+in
+    case+ attBd[x, y] of
+    | aN0 () => $tup(x, y)
+    | aN1 (_) => checkBefore(player, double2int(JSmath_random()*0.999999*8), double2int(JSmath_random()*0.999999*8))
 end
 )
 
