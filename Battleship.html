@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+<title>Playing Battleship</title>
+<style>
+#canvas-container
+{
+  margin: 0 auto; width: 920px; height: auto;
+}
+</style>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+</script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/bacon.js/0.7.53/Bacon.min.js">
+</script>
+<script
+  src="https://ats-lang.github.io/LIBRARY/libatscc2js/libatscc2js_all.js">
+</script>
+<script
+  src="https://ats-lang.github.io/LIBRARY/libatscc2js/libatscc2js_baconjs_all.js">
+</script>
+<script
+  src="https://ats-lang.github.io/LIBRARY/libatscc2js/libatscc2js_print_store_cats.js">
+</script>
+</head>
+<body>
+<h1>ATS->C->JS via atscc2js</h1>
+<!--
+HX-2014-09: it must be the last one!
+-->
+
+<h1>Let's Play Battleship</h1>
+
+
+<div style="font-size: 16pt;">
+  Attack (row, column):<br><input type="text" id="attackx" value='' size=16></input><br><input type="text" id='attacky' value='' size=16></input>
+  <br>
+  <button id="attack_btn">Attack!</button>
+</div>
+
+<div>
+<center>
+<!--
+<font size="+3">
+-->
+<pre id="theBattleship_printbd" style="font-size: 14pt; letter-spacing: 10px;"></pre>
+</font>
+</center>
+</div>
+
+<script src="./Battleship_play_dats.js"></script>
+
+</body>
+</html>
