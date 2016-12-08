@@ -274,7 +274,7 @@ in
 end
 )
 
-implement printScores (s0, s1): void =
+implement printScores (s0, s1) =
 (
 let
     val () = println!()
@@ -288,6 +288,34 @@ let
 in
     if s0 = 10 then alert("You won!") else if s1 = 10 then alert("You Lost!") else ()
 end
+)
+
+implement printResults (human, cpu) =
+(
+if (human = 1 && cpu = 1) then let
+        val () = print("You sunk one of his ships and he sunk one of your ships!")
+        val () = println!()
+        val () = println!()
+    in
+    end
+else if (human = 1) then let
+        val () = print("You sunk one of his ships and he missed!")
+        val () = println!()
+        val () = println!()
+    in
+    end
+else if (cpu = 1) then let
+        val () = print("You missed and he sunk one of your ships!")
+        val () = println!()
+        val () = println!()
+    in
+    end
+else let
+        val () = print("You both missed!")
+        val () = println!()
+        val () = println!()
+    in
+    end
 )
 
 (* ****** ****** *)

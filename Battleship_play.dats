@@ -104,24 +104,15 @@ document.getElementById("attack_btn").onclick = function () {
     var x = parseInt(document.getElementById("attackx").value);
     var y = parseInt(document.getElementById("attacky").value);
     var res = attack(players[0], players[1], x, y);
-    if (res == 1) {
-        hits = hits + 1;
-        alert("Success! You sunk one of his ships!");
-    } else {
-        alert("You missed!");
-    }
     var xtry = ats2jspre_double2int(Math.random()*0.999999*8);
     var ytry = ats2jspre_double2int(Math.random()*0.999999*8);
     var [cpux, cpuy] = checkBefore(players[1], xtry, ytry);
     var res2 = attack(players[1], players[0], cpux, cpuy);
-    if (res2 == 1) {
-        hitsTaken = hitsTaken + 1;
-        alert("He sunk one of your ships!");
-    } else {
-        alert("He missed!");
-    }
 
     ats2jspre_the_print_store_clear();
+    hits = hits + res;
+    hitsTaken = hitsTaken + res2;
+    printResults(res, res2);
     var [s1, s2] = boards2show(players[0]);
     printBoards(s1, s2);
     printScores(hits, hitsTaken);

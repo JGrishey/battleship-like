@@ -73,6 +73,8 @@ fun printBoards (showBoard, showBoard): void = "mac#"
 
 fun printScores (int, int): void = "mac#"
 
+fun printResults (int, int): void = "mac#"
+
 fun checkBefore (player, int, int): $tup(int, int) = "mac#"
 
 fun gameEnd_check (player): int (* 0 for no result, 1 for human win, 2 for cpu win *) = "mac#"
