@@ -287,7 +287,13 @@ let
     val () = print("CPU score: ")
     val () = print(s1)
 in
-    if s0 = 10 then alert("You won!") else if s1 = 10 then alert("You Lost!") else ()
+    if s0 = 10 && s1 = 10 then
+        (alert("You tied!"); 1)
+    else if s1 = 10 then
+        (alert("You Lost!"); 1)
+    else if s0 = 10 then
+        (alert("You won!"); 1)
+    else 0
 end
 )
 

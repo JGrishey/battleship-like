@@ -69,7 +69,7 @@ fun boards2show (player): $tup(showBoard, showBoard) = "mac#"
 
 fun printBoards (showBoard, showBoard): void = "mac#"
 
-fun printScores {m,n:nat}(int(m), int(n)): void = "mac#"
+fun printScores {m,n:nat}(int(m), int(n)): int = "mac#"
 
 fun printResults {m,n:nat}(int(m), int(n), int, int, int, int): void = "mac#"
 
