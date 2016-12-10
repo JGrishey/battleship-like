@@ -145,7 +145,12 @@ let
     val $tup(p1ownBd, p1attBd, p1type) = p1
     val $tup(p2ownBd, p2attBd, p2type) = p2
     val $tup(checkX, checkY) = checkBefore(p1, x, y)
-    val result = if checkX != ~1 then bomb_node (p2ownBd, p1attBd, x, y) else (alert("You already tried that pair!"); 2)
+    val result = if (checkX != ~1 && checkX != ~2) then
+                    bomb_node (p2ownBd, p1attBd, x, y)
+                else if (checkX = ~1) then
+                    (alert("You already tried that pair!"); 2)
+                else
+                    (alert("Your choice has to be inside the grid!"); 2)
 in
     result
 end
@@ -345,12 +350,15 @@ implement checkBefore (player, x, y) =
 let
     val $tup(_, attBd, type) = player
 in
-    case+ attBd[x, y] of
-    | aN0 () => $tup(x, y)
-    | aN1 (_) => if type then
-                    checkBefore(player, double2int(JSmath_random()*0.999999*8), double2int(JSmath_random()*0.999999*8))
-                 else
-                    $tup(~1, ~1)
+    if (x >= 0 && x < 8) && (y >= 0 && y < 8) then
+        case+ attBd[x, y] of
+        | aN0 () => $tup(x, y)
+        | aN1 (_) => if type then
+                        checkBefore(player, double2int(JSmath_random()*0.999999*8), double2int(JSmath_random()*0.999999*8))
+                     else
+                        $tup(~1, ~1)
+    else
+        $tup(~2, ~2)
 end
 )
 
