@@ -144,8 +144,8 @@ implement attack (p1, p2, x, y) =
 let
     val $tup(p1ownBd, p1attBd, p1type) = p1
     val $tup(p2ownBd, p2attBd, p2type) = p2
-
-    val result = bomb_node (p2ownBd, p1attBd, x, y)
+    val $tup(checkX, checkY) = checkBefore(p1, x, y)
+    val result = if checkX != ~1 then bomb_node (p2ownBd, p1attBd, x, y) else (alert("You already tried that pair!"); 2)
 in
     result
 end
@@ -286,32 +286,56 @@ in
 end
 )
 
-implement printResults (human, cpu) =
+implement printResults (human, cpu, hx, hy, cx, cy) =
 (
-if (human = 1 && cpu = 1) then let
-        val () = print("You sunk one of his ships and he sunk one of your ships!")
-        val () = println!()
-        val () = println!()
-    in
-    end
-else if (human = 1) then let
-        val () = print("You sunk one of his ships and he missed!")
-        val () = println!()
-        val () = println!()
-    in
-    end
-else if (cpu = 1) then let
-        val () = print("You missed and he sunk one of your ships!")
-        val () = println!()
-        val () = println!()
-    in
-    end
-else let
-        val () = print("You both missed!")
-        val () = println!()
-        val () = println!()
-    in
-    end
+let
+    fun printCoord (x: int, y: int): void =
+        let
+            val () = print("(")
+            val () = print(x)
+            val () = print(",")
+            val () = print(y)
+            val () = print(")")
+        in
+        end
+in
+    if (human = 1 && cpu = 1) then let
+            val () = print("You hit at ")
+            val () = printCoord(hx, hy)
+            val () = print(" and he hit at ")
+            val () = printCoord(cx, cy)
+            val () = println!("!")
+            val () = println!()
+        in
+        end
+    else if (human = 1) then let
+            val () = print("You hit at ")
+            val () = printCoord(hx, hy)
+            val () = print(" and he missed at ")
+            val () = printCoord(cx, cy)
+            val () = println!("!")
+            val () = println!()
+        in
+        end
+    else if (cpu = 1) then let
+            val () = print("You missed at ")
+            val () = printCoord(hx, hy)
+            val () = print(" and he hit at ")
+            val () = printCoord(cx, cy)
+            val () = println!("!")
+            val () = println!()
+        in
+        end
+    else let
+            val () = print("You missed at ")
+            val () = printCoord(hx, hy)
+            val () = print(" and he missed at ")
+            val () = printCoord(cx, cy)
+            val () = println!("!")
+            val () = println!()
+        in
+        end
+end
 )
 
 (* ****** ****** *)
@@ -319,11 +343,14 @@ else let
 implement checkBefore (player, x, y) =
 (
 let
-    val $tup(_, attBd, _) = player
+    val $tup(_, attBd, type) = player
 in
     case+ attBd[x, y] of
     | aN0 () => $tup(x, y)
-    | aN1 (_) => checkBefore(player, double2int(JSmath_random()*0.999999*8), double2int(JSmath_random()*0.999999*8))
+    | aN1 (_) => if type then
+                    checkBefore(player, double2int(JSmath_random()*0.999999*8), double2int(JSmath_random()*0.999999*8))
+                 else
+                    $tup(~1, ~1)
 end
 )
 

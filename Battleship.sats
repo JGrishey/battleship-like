@@ -71,7 +71,7 @@ fun printBoards (showBoard, showBoard): void = "mac#"
 
 fun printScores {m,n:nat}(int(m), int(n)): void = "mac#"
 
-fun printResults {m,n:nat}(int(m), int(n)): void = "mac#"
+fun printResults {m,n:nat}(int(m), int(n), int, int, int, int): void = "mac#"
 
 fun checkBefore (player, int, int): $tup(int, int) = "mac#"
 

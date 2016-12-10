@@ -113,7 +113,7 @@ document.getElementById("attack_btn").onclick = function () {
         ats2jspre_the_print_store_clear();
         hits = hits + res;
         hitsTaken = hitsTaken + res2;
-        printResults(res, res2);
+        printResults(res, res2, x, y, cpux, cpuy);
         var [s1, s2] = boards2show(players[0]);
         printBoards(s1, s2);
         printScores(hits, hitsTaken);
