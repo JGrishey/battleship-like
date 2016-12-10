@@ -51,7 +51,7 @@ implement player_human_init () =
 let
     val ownBd = ownBoard_init ()
     val attBd = attackBoard_init ()
-    val playerInit = $tup(ownBd, attBd, false, 0, 0)
+    val playerInit = $tup(ownBd, attBd, false)
 in
     playerInit
 end
@@ -62,7 +62,7 @@ implement player_cpu_init () =
 let
     val ownBd = ownBoard_init ()
     val attBd = attackBoard_init ()
-    val cpuInit = $tup(ownBd, attBd, true, 0, 0)
+    val cpuInit = $tup(ownBd, attBd, true)
 in
     cpuInit
 end
@@ -73,7 +73,7 @@ end
 implement ownBoard_get (player) =
 (
 let
-    val $tup(ownBd, _, _, _, _) = player
+    val $tup(ownBd, _, _) = player
 in
     ownBd
 end
@@ -82,7 +82,7 @@ end
 implement attackBoard_get (player) =
 (
 let
-    val $tup(_, attBd, _, _, _) = player
+    val $tup(_, attBd, _) = player
 in
     attBd
 end
@@ -137,15 +137,13 @@ in
 end
 )
 
-implement genShip (x, y) = $tup(x, y)
-
 (* ****** ****** *)
 
 implement attack (p1, p2, x, y) =
 (
 let
-    val $tup(p1ownBd, p1attBd, p1type, p1hits, p1hitsTaken) = p1
-    val $tup(p2ownBd, p2attBd, p2type, p2hits, p2hitsTaken) = p2
+    val $tup(p1ownBd, p1attBd, p1type) = p1
+    val $tup(p2ownBd, p2attBd, p2type) = p2
 
     val result = bomb_node (p2ownBd, p1attBd, x, y)
 in
@@ -155,14 +153,12 @@ end
 //
 implement bomb_node (ownBd, attBd, x, y) =
 (
-    case+ ownBd[x, y] of
-    | dN0 () => (attBd[x, y] := aN1(1); ownBd[x,y] := dN1(3); 0)
-    | dN1 (i) => if i = 1 then (ownBd[x,y] := dN1(2); attBd[x, y] := aN1(2); 1) else 0
-    (*
-        case+ i of
-        | 1 => (ownBd[x, y] := dN1(2); attBd[x, y] := aN1(2); 1)
-        | _ => (0)
-    *)
+    if (x < 8 && x >= 0) && (y < 8 && y >= 0) then
+        case+ ownBd[x, y] of
+        | dN0 () => (attBd[x, y] := aN1(1); ownBd[x,y] := dN1(3); 0)
+        | dN1 (i) => if i = 1 then (ownBd[x,y] := dN1(2); attBd[x, y] := aN1(2); 1) else 0
+    else
+        (alert("Your inputs need to be inside the grid!"); 2)
 )
 
 (* ****** ****** *)
@@ -199,7 +195,7 @@ case+ nx of
 implement boards2show (player) =
 (
 let
-    val $tup(ownBd, attBd, type, _, _) = player
+    val $tup(ownBd, attBd, type) = player
     val showOwnBd = mtrxszref_make_elt(NROW, NCOL, "")
     val showAttBd = mtrxszref_make_elt(NROW, NCOL, "")
     val () = mtrxszref_foreach_cloref(ownBd, lam(i, j) =<cloref1> showOwnBd[i, j] := defNode2string(ownBd[i, j]))
@@ -323,26 +319,11 @@ else let
 implement checkBefore (player, x, y) =
 (
 let
-    val $tup(_, attBd, _, _, _) = player
+    val $tup(_, attBd, _) = player
 in
     case+ attBd[x, y] of
     | aN0 () => $tup(x, y)
     | aN1 (_) => checkBefore(player, double2int(JSmath_random()*0.999999*8), double2int(JSmath_random()*0.999999*8))
-end
-)
-
-(* ****** ****** *)
-
-implement gameEnd_check (player) =
-(
-let
-    val $tup(_, _, type, hits, hitsTaken) = player
-in
-    if hits >= 10 then
-        if type = false then 1 else 2
-    else if hitsTaken >= 10 then
-        if type = false then 2 else 1
-    else 0
 end
 )
 

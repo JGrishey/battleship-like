@@ -104,19 +104,21 @@ document.getElementById("attack_btn").onclick = function () {
     var x = parseInt(document.getElementById("attackx").value);
     var y = parseInt(document.getElementById("attacky").value);
     var res = attack(players[0], players[1], x, y);
-    var xtry = ats2jspre_double2int(Math.random()*0.999999*8);
-    var ytry = ats2jspre_double2int(Math.random()*0.999999*8);
-    var [cpux, cpuy] = checkBefore(players[1], xtry, ytry);
-    var res2 = attack(players[1], players[0], cpux, cpuy);
 
-    ats2jspre_the_print_store_clear();
-    hits = hits + res;
-    hitsTaken = hitsTaken + res2;
-    printResults(res, res2);
-    var [s1, s2] = boards2show(players[0]);
-    printBoards(s1, s2);
-    printScores(hits, hitsTaken);
-    document.getElementById("theBattleship_printbd").innerHTML = ats2jspre_the_print_store_join();
+    if (res != 2) {
+        var xtry = ats2jspre_double2int(Math.random()*0.999999*8);
+        var ytry = ats2jspre_double2int(Math.random()*0.999999*8);
+        var [cpux, cpuy] = checkBefore(players[1], xtry, ytry);
+        var res2 = attack(players[1], players[0], cpux, cpuy);
+        ats2jspre_the_print_store_clear();
+        hits = hits + res;
+        hitsTaken = hitsTaken + res2;
+        printResults(res, res2);
+        var [s1, s2] = boards2show(players[0]);
+        printBoards(s1, s2);
+        printScores(hits, hitsTaken);
+        document.getElementById("theBattleship_printbd").innerHTML = ats2jspre_the_print_store_join();
+    }
 };
 });
 //

@@ -16,6 +16,11 @@ Battleship_play_dats.c: \
 Battleship.sats Battleship_play.dats; \
 $(PATSCC) -ccats Battleship_play.dats
 Battleship_play_dats.js: Battleship_play_dats.c; $(ATSCC2JS) -o $@ -i $<
+
+all:: \
+Slides_dats.js
+Slides_dats.c: Slides.dats; $(PATSCC) -ccats $<
+Slides_dats.js: Slides_dats.c; $(ATSCC2JS) -o $@ -i $<
 #
 ######
 

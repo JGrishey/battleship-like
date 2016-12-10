@@ -27,7 +27,7 @@ datatype attNode =
 	| aN0 of ()
 	| aN1 of (int)
 
-typedef ship = $tup(int (* x *), int (* y *))
+typedef ship = $tup(int (* row *), int (* col *))
 
 (* ****** ****** *)
 
@@ -39,7 +39,7 @@ typedef showBoard = mtrxszref(string)
 
 (* ****** ****** *)
 
-typedef player = $tup(ownBoard, attackBoard, bool(* 0 for human, 1 for cpu*), int (* hits *), int (* hits taken *))
+typedef player = $tup(ownBoard, attackBoard, bool(* 0 for human, 1 for cpu*))
 
 (* ****** ****** *)
 
@@ -55,13 +55,11 @@ fun player_cpu_init(): player = "mac#"
 
 fun ownBoard_init(): ownBoard = "mac#"
 
+fun attackBoard_init(): attackBoard = "mac#"
+
 fun ownBoard_addShips (player, ship, ship, ship, ship, ship, ship, ship, ship, ship, ship): void = "mac#"
 
 fun generate_randShip (): ship = "mac#"
-
-fun genShip (int, int): ship = "mac#"
-
-fun attackBoard_init(): attackBoard = "mac#"
 
 fun ownBoard_get(player): ownBoard = "mac#"
 
@@ -71,13 +69,11 @@ fun boards2show (player): $tup(showBoard, showBoard) = "mac#"
 
 fun printBoards (showBoard, showBoard): void = "mac#"
 
-fun printScores (int, int): void = "mac#"
+fun printScores {m,n:nat}(int(m), int(n)): void = "mac#"
 
-fun printResults (int, int): void = "mac#"
+fun printResults {m,n:nat}(int(m), int(n)): void = "mac#"
 
 fun checkBefore (player, int, int): $tup(int, int) = "mac#"
-
-fun gameEnd_check (player): int (* 0 for no result, 1 for human win, 2 for cpu win *) = "mac#"
 
 (* ****** ****** *)
 

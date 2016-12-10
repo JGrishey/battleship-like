@@ -1,0 +1,24 @@
+.text-input {
+    width: 2vh;
+    height: 2vh;
+    outline: none;
+    border-style: solid;
+    border-radius: 2px;
+    border-color: #000;
+    font-size: 14pt;
+    text-align: center;
+}
+
+.btn-attack {
+    width: 10vh;
+    height: 3vh;
+    border-style: solid;
+    background: transparent;
+    font-size: 14pt;
+    text-align: center;
+    border-radius: 2px;
+    border-color: #000;
+    outline: none;
+    cursor: pointer;
+    margin-top: 2vh;
+}
